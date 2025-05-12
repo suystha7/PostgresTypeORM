@@ -1,8 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Company } from "./Company";
 
 @Entity()
-export class Product {
+export class Course {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -10,13 +9,8 @@ export class Product {
   name: string;
 
   @Column()
-  price: number;
+  courseCode: number;
 
   @Column()
   description: string;
-
-  @ManyToOne(() => Company, (company) => company.products, {
-    onDelete: "CASCADE",
-  })
-  company: Company;
 }
