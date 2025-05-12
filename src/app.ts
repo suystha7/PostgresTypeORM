@@ -1,88 +1,13 @@
 import "reflect-metadata";
 import express from "express";
-import { DataSource } from "typeorm";
-import { User } from "./entites/User";
-import { Profile } from "./entites/Profile";
+import { AppDataSource } from "./db/db.config";
 
 const app = express();
 app.use(express.json());
 
 const port = 3000;
 
-app.get("/", async (req, res) => {
-  const userRepo = AppDataSource.getRepository(User);
-  const profileRepo = AppDataSource.getRepository(Profile);
-
-  // find all the records
-  // const allRecords = await userRepo.find();
-  // res.json(allRecords);
-
-  //delete
-  //  await userRepo.delete(2)
-  // res.send("Record Deleted");
-
-  await profileRepo.delete(1);
-  res.send("profile deleted")
-
-
-
-  
-  // // insert
-  // let profile: Profile = new Profile();
-  // (profile.gender = "male"), (profile.photo = "this is the photo");
-  // let user: User = new User();
-  // (user.email = "suyogstha317@gmail.com"),
-  //   (user.firstName = "Suyog"),
-  //   (user.lastName = "Shrestha");
-  // user.profile = profile;
-
-  // const userInsert = await userRepo.save(user);
-
-  // res.json(userInsert);
-
-  // const userFound = await userRepo.findOne({ where: { id: 12 } });
-
-  // if (userFound) {
-  //   (userFound.email = "suyog@gmail.com"),
-  //     (userFound.firstName = "Sumana"),
-  //     (userFound.lastName = "Shrestha"),
-  //     (userFound.profile.gender = "female"),
-  //     (userFound.profile.photo = "no photo");
-
-  //   const updatedRecord = await userRepo.save(userFound);
-  //   res.json(updatedRecord);
-  // } else {
-  //   res.send("Record doesn't exists");
-  // }
-
-  // update
-  // await userRepo.update(8, {
-  //   firstName: "Sumana",
-  //   lastName: "Shakya",
-  //   email: "sumanashky@gmail.com",
-  // });
-
-  // res.send("Record Updated");
-
-
-
-  // filter
-  // const record = await userRepo.findOne({ where: { firstName: "Sumana" } });
-
-  // res.json(record)
-});
-
-const AppDataSource = new DataSource({
-  type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "postgres",
-  password: "12345",
-  database: "postgres",
-  entities: ["src/entites/*{.ts,.js}"],
-  synchronize: true,
-  logging: true,
-});
+app.get("/", async (req, res) => {});
 
 AppDataSource.initialize()
   .then(() => {
@@ -92,3 +17,59 @@ AppDataSource.initialize()
     });
   })
   .catch((err) => console.log("Error Connecting database", err));
+
+// insert
+// let products: Product[] = [];
+
+// let iphone = new Product();
+// iphone.name = "Iphone";
+// iphone.description = "Smart Phone";
+// iphone.price = 250000;
+
+// let ipad = new Product();
+// ipad.name = "Ipad";
+// ipad.description = "Tablet";
+// ipad.price = 150000;
+
+// let macbook = new Product();
+// macbook.name = "MacBook";
+// macbook.description = "Laptop";
+// macbook.price = 400000;
+
+// products.push(iphone, ipad, macbook);
+
+// let company: Company = new Company();
+// (company.name = "Apple"),
+//   (company.description = "Tech Company California"),
+//   (company.products = products);
+
+// const data = await companyRepo.save(company);
+
+// res.json(data);
+
+// find
+// const companyFound = await companyRepo.find({
+//     relations: {
+//       products: true,
+//     },
+//     where: {
+//       products: {
+//         price: LessThan(300000),
+//       },
+//     },
+//   });
+
+// update
+// const company = await companyRepo.findOne({ where: { id: 2 } });
+
+//   if (company != undefined) {
+//     (company.name = "Samsung"), (company.description = "Samsung Company Korea");
+//     for (let x = 0; x < company.products.length; x++) {
+//       company.products[x].price = 10;
+//     }
+
+//     const update = await companyRepo.save(company);
+//     res.json(update);
+//   } else {
+//     res.json("Company doesn't exists");
+//   }
