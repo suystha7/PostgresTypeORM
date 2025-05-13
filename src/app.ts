@@ -13,10 +13,10 @@ app.get("/", async (req, res) => {
   const studentRepo = AppDataSource.getRepository(Student);
   const courseRepo = AppDataSource.getRepository(Course);
 
-  // const studentFound = await studentRepo.find();
-  // res.json(studentFound);
+  const studentFound = await studentRepo.find();
+  res.json(studentFound);
 
-  // await studentRepo.delete(2);
+  await studentRepo.delete(2);
   await courseRepo.delete(2);
   res.send("Deleted")
 });
